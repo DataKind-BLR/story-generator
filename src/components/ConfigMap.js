@@ -5,9 +5,9 @@ let appConfig = {
 };
 
 let homeComponent = {
-	"primary_header": "OpenBudgets India",
+	"primary_header": "CHRI Monitoring Tool",
 	"secondary_header" : "Story Generator",
-	"description" : "Select an indicator to generate the visualizations"
+	"description" : "Select a question to generate the visualizations"
 }
 
 
