@@ -68,7 +68,7 @@ class GraphComponent extends React.Component {
       let selectedFigures = [];
 
       for(let selectedState in stateArray){
-        selectedFigures.push(this.props.data.stateFigures.find(function(value, index) {
+        selectedFigures.push((this.props.data.stateFigures || []).find(function(value, index) {
         if(value.state == stateArray[selectedState]){
           return value.state;
            } 
@@ -114,7 +114,7 @@ class GraphComponent extends React.Component {
 
   updateNotes(){
       let self = this;
-      let description = expenditure_metadata.find(function(record, index){
+      let description = (expenditure_metadata || []).find(function(record, index){
         if(record.slugSector == self.props.selectedSector && record.slugIndicator == self.props.data.slugIndicator){
           return record;
         }
@@ -124,7 +124,7 @@ class GraphComponent extends React.Component {
 
   updateConcordanceData(){
     let selected_sector = this.props.selectedSector;
-    let sector_notes = concordance_data.find(function(sector){
+    let sector_notes = (concordance_data || []).find(function(sector){
       if(sector.slugSector == selected_sector){
         return sector;
       }

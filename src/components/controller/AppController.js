@@ -2,48 +2,40 @@ import React from 'react';
 import RightSidebar from '../views/rightsidebar/RightSidebar';
 import Choropleth from "../views/visualization/Choropleth";
 import GraphComponent from "../views/visualization/GraphComponent";
-import { expenditure_data } from "../../data/expenditure_data";
+import { themes, getSubThemes, getTopics } from "../../data";
 
-const exp_data = expenditure_data;
 class AppController extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
             budgetAttr:"BE",
             viewBy: "choropleth",
-            sectorSelected:null, 
-            figData: exp_data, 
-            indicatorData: null,
-            sectorName:null };
+            sectorSelected: {},
+            indicatorData: {},
+            sectorName: '' };
         this.handleChange = this.handleChange.bind(this);
         this.onChangeBudgetAttr =this.onChangeBudgetAttr.bind(this);
     }
 
     componentWillMount() {
-        const indicator_data = this.state.figData.find((sector) => {
-                return this.props.params.sector == sector.slugSector;
-            }).subIndicators.find((indicator) => {
-                return this.props.params.indicator == indicator.slugIndicator;
-            });
-        let sector_name = this.state.figData.find((sector) => {
-            return this.props.params.sector == sector.slugSector; 
-        }).sector;
-
-        this.setState({indicatorData:indicator_data, sectorName:sector_name, sectorSelected:this.props.params.sector});
+        if(this.props.params == undefined || this.props.params.topic == undefined) return;
+        const { theme, sub_theme, topic } = this.props.params;
+        const sub_theme_url_slug = `${theme}/${sub_theme}`;
+        const theme_entity = themes.filter(t => t.url_slug === theme).shift();
+        const sub_theme_entity = getSubThemes(theme_entity).filter(s => s.url_slug === sub_theme).shift();
+        const topic_entity = getTopics(sub_theme_entity).filter(t => t.url_slug === topic).shift();
+        this.setState({indicatorData: topic_entity.data, sectorName:sub_theme_entity.name, sectorSelected:sub_theme});
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const indicator_data = this.state.figData.find((sector) => {
-                return this.props.params.sector == sector.slugSector;
-            }).subIndicators.find((indicator) => {
-                return this.props.params.indicator == indicator.slugIndicator;
-            });
-        let sector_name = this.state.figData.find((sector) => {
-            return this.props.params.sector == sector.slugSector; 
-        }).sector;
-        
-        if(prevState.indicatorData != indicator_data){
-            this.setState({indicatorData:indicator_data, sectorName:sector_name, sectorSelected:this.props.params.sector});
+        if(this.props.params == undefined || this.props.params.topic == undefined) return;
+        const { theme, sub_theme, topic } = this.props.params;
+        const sub_theme_url_slug = `${theme}/${sub_theme}`;
+        const theme_entity = themes.filter(t => t.url_slug === theme).shift();
+        const sub_theme_entity = getSubThemes(theme_entity).filter(s => s.url_slug === sub_theme).shift();
+        const topic_entity = getTopics(sub_theme_entity).filter(t => t.url_slug === topic).shift();
+        if(prevState.indicatorData != topic_entity.data){
+            this.setState({indicatorData: topic_entity.data, sectorName:sub_theme_entity.name, sectorSelected:sub_theme});
         }
     }
 
@@ -56,6 +48,7 @@ class AppController extends React.Component {
     }
    
     render() {
+        if(this.props.params == undefined || this.props.params.topic == undefined) return null;
         return ( 
             <div>
                 <div className = "col-lg-10" >

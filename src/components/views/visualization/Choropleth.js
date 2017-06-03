@@ -206,7 +206,7 @@ export default class Choropleth extends Component {
 
     updateNotes(){
       let self = this;
-      let description = expenditure_metadata.find(function(record, index){
+      let description = (expenditure_metadata || []).find(function(record, index){
         if(record.slugSector == self.props.selectedSector && record.slugIndicator == self.props.data.slugIndicator){
           return record;
         }
@@ -216,7 +216,7 @@ export default class Choropleth extends Component {
 
     updateConcordanceData(){
       let selected_sector = this.props.selectedSector;
-      let sector_notes = concordance_data.find(function(sector){
+      let sector_notes = (concordance_data || []).find(function(sector){
         if(sector.slugSector == selected_sector){
           return sector;
         }
@@ -265,7 +265,7 @@ export default class Choropleth extends Component {
       let attrType = this.props.attrType;
       let MappedFigures = new Array();
       MappedFigures = GeoJSONData.features.map(function(state, index){      
-        let temp = stateFigures.stateFigures.find(function(x){
+        let temp = (stateFigures.stateFigures || []).find(function(x){
         if(x.state==state.properties.NAME_1)
             return x;
         else{
@@ -341,6 +341,7 @@ export default class Choropleth extends Component {
 
   getYearList(data){
     let yearList = [];
+    if(data.stateFigures == undefined || data.stateFigures.length == 0) return yearList;
     for (let key in data.stateFigures[0].figures[this.props.attrType]){
       yearList.push(Object.keys(data.stateFigures[0].figures[this.props.attrType][key])[0]);
     }
@@ -388,7 +389,7 @@ render (){
       <div className="row selected-params">
         <div className="row">
           <div className="col-lg-10 indicator-title-wrapper">
-            <h3 className="indicator-title">{this.props.selectedIndicator} 
+            <h3 className="indicator-title">{(this.props.selectedIndicator || {}).description} 
           </h3>
           </div>
           <div className="col-lg-2 know-more-text">
@@ -492,7 +493,7 @@ render (){
       }
       </div>
       <div className="row indicator-description">
-        Source - {this.state.notesText.source}  
+        Source - {(this.state.notesText || {}).source}  
       </div>
       </div>
     );
