@@ -43,6 +43,7 @@
     "react-vis": "^1.4.0",
     "redux": "3.5.2",
     "redux-thunk": "2.0.1",
+    "styled-components": "^2.0.0",
     "toastr": "2.1.2"
   },
   "devDependencies": {
