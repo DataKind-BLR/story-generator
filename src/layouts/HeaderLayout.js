@@ -17,13 +17,10 @@ const Layout = styled.div`
 `;
 
 const Header = styled.header`
-  position: fixed;
-  height: 60px;
-  top: 0;
-  left: 0;
-  right: 0;
   overflow: hidden;
   text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
   img {
     height: 60px;
   }
@@ -37,13 +34,9 @@ const Header = styled.header`
 `;
 
 const Nav = styled.nav`
-  position: absolute;
   height: 45px;
   overflow: hidden;
   overflow-x: auto;
-  left: 0;
-  right: 0;
-  top: 65px;
 `;
 
 const Aside = styled.aside`
@@ -56,40 +49,38 @@ const Aside = styled.aside`
 `;
 
 const MainSection = styled.section`
-  position: absolute;
   overflow-y: auto;
-  left: 280px;
-  right: 0;
-  top: 0;
-  bottom: 0;
 `;
 
 const Main = styled.main`
-  position: absolute;
-  top: 110px;
-  bottom: 0;
   overflow: auto;
-  left: 0;
-  right: 0;
+`;
+
+const Content = styled.div`
+  border-top: 1px solid #CCC;
 `;
 
 export const HeaderLayout = ({ title, logo, children, params }) =>
   <Layout>
-    <Header>
+    <Header className="row">
       <a href='/'>
         {logo && <img alt='Logo' src={logo} />}
         {title && <p>{title}</p>}
       </a>
     </Header>
-    <Nav>
-		  <TabsPanel params={params} />
-    </Nav>
-    <Main>
-      <Aside>
-        <LeftSidebar params={params} />
-      </Aside>
-      <MainSection>
-        {children}
-      </MainSection>
-    </Main>
+    <div className="row">
+      <Nav className="col-lg-12">
+        <TabsPanel params={params} />
+      </Nav>
+    </div>
+    <Content className="row">
+      <Main className="col-lg-12">
+        <Aside className="col-lg-3">
+          <LeftSidebar params={params} />
+        </Aside>
+        <MainSection className="col-lg-9">
+          {children}
+        </MainSection>
+      </Main>
+    </Content>
   </Layout>;
