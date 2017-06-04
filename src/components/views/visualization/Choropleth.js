@@ -8,6 +8,7 @@ import {
   Rectangle,
   TileLayer, GeoJSON
 } from 'react-leaflet';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import { district_boundaries } from '../../../data/district_boundaries';
 import { state_boundaries } from '../../../data/state_boundaries';
@@ -129,36 +130,36 @@ LegendStep.propTypes = {
 };
 
 export default class Choropleth extends Component {
-  constructor() {
-    super();
-    this.state = {
-      budgetAttr: "BE",
-      selectedYear: null,
-      selectedFigure: null,
-      hoverstate: null,
-      hoverFigure: null,
-      indicatorUnit: null,
-      bandFigures: {},
-      notesText: null,
-      vizActive: true,
-      concordanceData: null
-    };
+    constructor(){
+      super();
+      this.state = {
+        budgetAttr:"all",
+        selectedYear:null, 
+        selectedFigure:null,
+        hoverstate:null,
+        hoverFigure:null,
+        indicatorUnit:null,
+        bandFigures:null,
+        notesText:null,
+        vizActive:true,
+        concordanceData:null
+      };
 
-    this.computeBands = this.computeBands.bind(this);
-    this.mungeData = this.mungeData.bind(this);
-    this.getYearList = this.getYearList.bind(this);
-    this.handleYearChange = this.handleYearChange.bind(this);
-    this.getstyle = this.getstyle.bind(this);
-    this.onEachFeature = this.onEachFeature.bind(this);
-    this.highlightFeature = this.highlightFeature.bind(this);
-    this.resetHighlight = this.resetHighlight.bind(this);
-    this.setToolTipContent = this.setToolTipContent.bind(this);
-    this.getBandNum = this.getBandNum.bind(this);
-    this.fillColor = this.fillColor.bind(this);
-    this.updateNotes = this.updateNotes.bind(this);
-    this.showConcordanceData = this.showConcordanceData.bind(this);
-    this.updateConcordanceData = this.updateConcordanceData.bind(this);
-  }
+      this.computeBands = this.computeBands.bind(this);
+      this.mungeData = this.mungeData.bind(this);
+      this.getYearList = this.getYearList.bind(this);
+      this.handleYearChange = this.handleYearChange.bind(this);
+      this.getstyle = this.getstyle.bind(this);
+      this.onEachFeature = this.onEachFeature.bind(this);
+      this.highlightFeature = this.highlightFeature.bind(this);
+      this.resetHighlight = this.resetHighlight.bind(this);
+      this.setToolTipContent = this.setToolTipContent.bind(this);
+      this.getBandNum = this.getBandNum.bind(this);
+      this.fillColor = this.fillColor.bind(this);
+      this.updateNotes = this.updateNotes.bind(this);
+      this.showConcordanceData = this.showConcordanceData.bind(this);
+      this.updateConcordanceData = this.updateConcordanceData.bind(this);
+    }
 
   componentWillMount() {
     this.updateNotes();
@@ -200,24 +201,11 @@ export default class Choropleth extends Component {
         this.computeBands(MappedFigures, this.state.selectedYear);
       }
     }
-
-    if (prevProps.selectedSector != this.props.selectedSector) {
-      this.updateConcordanceData();
-    }
-
-    if (prevProps.selectedSector != this.props.selectedSector || prevProps.data.slugIndicator != this.props.data.slugIndicator) {
-      this.updateNotes();
-
-    }
   }
 
   updateNotes() {
     let self = this;
-    let description = (expenditure_metadata || []).find(function (record, index) {
-      if (record.slugSector == self.props.selectedSector && record.slugIndicator == self.props.data.slugIndicator) {
-        return record;
-      }
-    });
+    let description = "DESC"; 
     this.setState({ notesText: description });
   }
 
@@ -232,67 +220,64 @@ export default class Choropleth extends Component {
   }
 
   computeBands(tempData, year) {
-    return;
-    // let data = tempData || {};
-    // let currentState = this.state;
+     let data = tempData || {};
+     let currentState = this.state;
 
-    // let max = Math.max.apply(null, (data.features || []).map(function (state, index) {
-    //   if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
-    //     return parseFloat(state.properties[year]);
-    //   }
-    //   else {
-    //     return -Infinity;
-    //   }
-    // }));
-    // max = max + max * 0.1;
+    let max = Math.max.apply(null, (data.features || []).map(function (state, index) {
+      if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
+         return parseFloat(state.properties[year]);
+       }
+       else {
+         return -Infinity;
+       }
+     }));
+     max = max + max * 0.1;
 
-    // let min = Math.min.apply(null, (data.features || []).map(function (state, index) {
-    //   if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
-    //     return parseFloat(state.properties[year]);
-    //   }
-    //   else {
-    //     return Infinity;
-    //   }
-    // }));
-    // min = min - min * 0.1;
+     let min = Math.min.apply(null, (data.features || []).map(function (state, index) {
+       if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
+         return parseFloat(state.properties[year]);
+       }
+       else {
+         return Infinity;
+      }
+     }));
+     min = min - min * 0.1;
 
-    // let retvalue = {
-    //   "20%": [min, min + (20 * (max - min)) / 100, 1],
-    //   "40%": [min + (20 * (max - min)) / 100, min + (40 * (max - min)) / 100, 2],
-    //   "60%": [min + (40 * (max - min)) / 100, min + (60 * (max - min)) / 100, 3],
-    //   "80%": [min + (60 * (max - min)) / 100, min + (80 * (max - min)) / 100, 4],
-    //   "100%": [min + (80 * (max - min)) / 100, min + (100 * (max - min)) / 100, 5]
-    // };
-    // this.setState({ bandFigures: retvalue });
+     let retvalue = {
+       "20%": [min, min + (20 * (max - min)) / 100, 1],
+       "40%": [min + (20 * (max - min)) / 100, min + (40 * (max - min)) / 100, 2],
+       "60%": [min + (40 * (max - min)) / 100, min + (60 * (max - min)) / 100, 3],
+       "80%": [min + (60 * (max - min)) / 100, min + (80 * (max - min)) / 100, 4],
+       "100%": [min + (80 * (max - min)) / 100, min + (100 * (max - min)) / 100, 5]
+     };
+     this.setState({ bandFigures: retvalue });
   }
 
   mungeData() {
-    const features = getStateFeatures();
-    console.log(features);
-    return features;
-    // let GeoJSONData = topojson.feature(TopojsonData, TopojsonData.objects.india_state_boundaries);
-    // let stateFigures = this.props.data;
-    // let attrType = this.props.attrType;
-    // let MappedFigures = new Array();
-    // MappedFigures = GeoJSONData.features.map(function(state, index){      
-    //   let temp = (stateFigures.stateFigures || []).find(function(x){
-    //   if(x.state==state.properties.NAME_1)
-    //       return x;
-    //   else{
-    //     return false;
-    //       }
-    //   });
+     let GeoJSONData = getStateFeatures();// topojson.feature(TopojsonData, TopojsonData.objects.india_state_boundaries);
+     let stateFigures = this.props.data;
+     let attrType = this.props.attrType;
+     let MappedFigures = new Array();
+     MappedFigures = GeoJSONData.features.map(function(state, index){      
+       let temp = (stateFigures.stateFigures || []).find(function(x){
+       if(x.state==state.properties.NAME_1)
+           return x;
+       else{
+         return false;
+           }
+       });
 
-    //   if(temp != null){
-    //     let tempFigure = temp.figures[attrType];
-    //     for (let fiscalFigure in tempFigure){
-    //       let tempYear = Object.keys(tempFigure[fiscalFigure])[0];
-    //       state.properties[tempYear] = parseFloat(tempFigure[fiscalFigure][tempYear]);
-    //       }
-    //   }
-    // return state;
-    // });
-    // return {"type": "FeatureCollection", "features": MappedFigures};
+       if(temp != null){
+         let tempFigure = temp.figures[attrType];
+         for (let fiscalFigure in tempFigure){
+           let tempYear = Object.keys(tempFigure[fiscalFigure])[0];
+           state.properties[tempYear] = parseFloat(tempFigure[fiscalFigure][tempYear]);
+           }
+       }
+     return state;
+     });
+      console.log('MAPPED FIGURES', MappedFigures);
+     return {"type": "FeatureCollection", "features": MappedFigures};
   }
 
   getBandNum(figure) {
@@ -355,6 +340,7 @@ export default class Choropleth extends Component {
     for (let key in data.stateFigures[0].figures[this.props.attrType]) {
       yearList.push(Object.keys(data.stateFigures[0].figures[this.props.attrType][key])[0]);
     }
+		console.log(yearList);
     return yearList;
   }
 
@@ -392,8 +378,8 @@ export default class Choropleth extends Component {
     this.setState({ vizActive: this.state.vizActive ? false : true });
   }
 
-  render() {
-    const attributeKey = { "BE": " Budget Estimates", "RE": "Revised Estimates", "A": "Actuals" };
+render (){
+  const attributeKey = {"complied":"All districts", "responded":"Responded", "responded_clearly":"Responded Y/N"};
     return (
       <div id="card-container">
         <div className="row selected-params">
@@ -437,9 +423,6 @@ export default class Choropleth extends Component {
                   minZoom={config.params.minZoom}
                 />
                 }
-        <div className="tcontainer">
-                  <YearSelector handleYearChange={this.handleYearChange} fiscalYears={this.getYearList(this.props.data)} selectedYear={this.state.selectedYear} />
-                </div>
 
                 <div className="statetooltip">
                   <StateToolTip statetooltip={this.state.hoverstate} allocations={this.state.hoverFigure} unit={this.state.indicatorUnit} />
@@ -511,9 +494,9 @@ export default class Choropleth extends Component {
 }
 
 Choropleth.propTypes = {
-  data: React.PropTypes.object,
-  attrType: React.PropTypes.string,
-  selectedSector: React.PropTypes.string,
-  selectedIndicator: React.PropTypes.string,
-  sectorName: React.PropTypes.string
+   data: React.PropTypes.object,
+   attrType:React.PropTypes.string,
+   selectedSector:React.PropTypes.string,
+   selectedIndicator:React.PropTypes.string,
+   sectorName:React.PropTypes.string
 };

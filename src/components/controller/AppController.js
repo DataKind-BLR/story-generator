@@ -8,7 +8,7 @@ class AppController extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            budgetAttr:"BE",
+            budgetAttr:"complied",
             viewBy: "choropleth",
             sectorSelected: {},
             indicatorData: {},
@@ -51,7 +51,7 @@ class AppController extends React.Component {
         if(this.props.params == undefined || this.props.params.topic == undefined) return null;
         return ( 
             <div>
-                <div className = "col-lg-10" >
+                <div className = "col-lg-12" >
                     <div id = "vis-container" >
                     {
                         this.state.viewBy == "choropleth" ? ( 
@@ -60,9 +60,6 @@ class AppController extends React.Component {
                             <GraphComponent data={this.state.indicatorData} attrType={this.state.budgetAttr} selectedIndicator={this.state.indicatorData.indicator} selectedSector = {this.state.sectorSelected} sectorName= {this.state.sectorName} /> )
                     }
                     </div>
-                </div>
-                <div className = "col-lg-2 rightsidebar" >
-                    <RightSidebar viewByChange={this.handleChange} budgetAttrChange={this.onChangeBudgetAttr}/> 
                 </div>
             </div>
             );
