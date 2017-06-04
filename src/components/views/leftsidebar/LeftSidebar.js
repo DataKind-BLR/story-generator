@@ -8,6 +8,7 @@ const Panel = styled.div`
 	height: 100%;
 	overflow: hidden;
 	padding: 5px;
+	border-right: 1px solid #ccc;
 `;
 
 class LeftSidebar extends React.Component {
