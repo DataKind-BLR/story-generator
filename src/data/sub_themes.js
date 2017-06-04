@@ -1,43 +1,43 @@
 export const sub_themes = [
     {
         "name": "Appointments",
-        "description": "Appointment of a) Legal Aid Counsel, b) Panel Lawyers and c) Retainer Lawyers",
+        "description": "Appointment of Legal Aid Counsel, Panel Lawyers and Retainer Lawyers",
         "url_slug": "appointments",
         "theme_url_slug": "first-access-to-legal-aid-police-station-or-court"
     },
     {
         "name": "Representations",
-        "description": "Representation by a) Legal Aid Counsel, b) Panel Lawyers and c) Retainer Lawyers",
+        "description": "Representation by Legal Aid Counsel, Panel Lawyers and Retainer Lawyers",
         "url_slug": "representations",
         "theme_url_slug": "first-access-to-legal-aid-police-station-or-court"
     },
     {
         "name": "Releases",
-        "description": "Releases from jail through a) Legal Aid Counsel, b) Panel Lawyers, and c) Retainer Lawyers",
+        "description": "Releases from jail through Legal Aid Counsel, Panel Lawyers, and Retainer Lawyers",
         "url_slug": "releases",
         "theme_url_slug": "first-access-to-legal-aid-police-station-or-court"
     },
     {
         "name": "Legal aid at police station",
-        "description": "Whether Legal aid has been provided at police station ?",
+        "description": "Whether Legal aid has been provided at police station?",
         "url_slug": "legal-aid-at-police-station",
         "theme_url_slug": "first-access-to-legal-aid-police-station-or-court"
     },
     {
         "name": "Working of Jail Legal Aid Clinics (JLAC)",
-        "description": "Whether Legal aid has been provided at police station ?",
+        "description": "Constitution of Jail Legal Aid Clinics",
         "url_slug": "working-of-jail-legal-aid-clinics-jlac",
         "theme_url_slug": "prison-legal-aid-clinics-effective-link"
     },
     {
         "name": "Appointment of Actors",
-        "description": "Appointment of a) Jail Visiting Lawyers (JVL), b) Convict PLVs, and c) Community PLVs",
+        "description": "Appointment of Jail Visiting Lawyers (JVL), Convict PLVs, and Community PLVs",
         "url_slug": "appointment-of-actors",
         "theme_url_slug": "prison-legal-aid-clinics-effective-link"
     },
     {
         "name": "Visits of Actors",
-        "description": "Visits of a) Jail Visiting lawyers , b) Convict PLVs",
+        "description": "Visits of Jail Visiting lawyers , Convict PLVs",
         "url_slug": "visits-of-actors",
         "theme_url_slug": "prison-legal-aid-clinics-effective-link"
     },
