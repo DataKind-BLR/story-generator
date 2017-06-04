@@ -10,12 +10,13 @@ import {
 } from 'react-leaflet';
 import 'bootstrap/dist/css/bootstrap.css';
 import { district_boundaries } from '../../../data/district_boundaries';
-// import topojson from 'topojson';
+import { state_boundaries } from '../../../data/state_boundaries';
 // const districts = {};
 const expenditure_metadata = [];
 const concordance_data = [];
 
 const getDistrictFeatures = () => topojson.feature(district_boundaries, district_boundaries.objects.districts);
+const getStateFeatures = () => topojson.feature(state_boundaries, state_boundaries.objects.india_state_boundaries);
 
 let config = {};
 
@@ -266,7 +267,9 @@ export default class Choropleth extends Component {
   }
 
   mungeData() {
-    return getDistrictFeatures();
+    const features = getStateFeatures();
+    console.log(features);
+    return features;
     // let GeoJSONData = topojson.feature(TopojsonData, TopojsonData.objects.india_state_boundaries);
     // let stateFigures = this.props.data;
     // let attrType = this.props.attrType;
