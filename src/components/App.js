@@ -4,8 +4,6 @@ import { Description, SubThemeDescription } from './views/Description';
 
 export const App = ({ params, children }) =>
 	<HeaderLayout title="CHRI Legal Aid Montoring Tool" logo="http://www.humanrightsinitiative.org/images/logo-orange.png" params={params}>
-		<SubThemeDescription theme={params.theme} sub_theme={params.sub_theme} />
-		<Description topic={params.topic} />
 		{children}
 	</HeaderLayout>;
 
