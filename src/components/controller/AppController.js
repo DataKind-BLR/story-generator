@@ -2,14 +2,15 @@ import React from 'react';
 import RightSidebar from '../views/rightsidebar/RightSidebar';
 import Choropleth from "../views/visualization/Choropleth";
 import GraphComponent from "../views/visualization/GraphComponent";
-import { expenditure_data } from "../../data/expenditure_data";
+import { chri_data } from "../../data/chri_data";
+//import { expenditure_data } from "../../data/expenditure_data";
 
-const exp_data = expenditure_data;
+const exp_data = chri_data;
 class AppController extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            budgetAttr:"BE",
+            budgetAttr:"complied",
             viewBy: "choropleth",
             sectorSelected:null, 
             figData: exp_data, 

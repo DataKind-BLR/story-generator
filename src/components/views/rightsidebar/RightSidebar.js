@@ -17,7 +17,7 @@ class RightSidebar extends React.Component{
 		super(props);
 		this.state = {
 			viewBy:"choropleth",
-			budgetAttribute:"BE"
+			budgetAttribute:"all"
 		};
 		this.handleViewByChange = this.handleViewByChange.bind(this);
 		this.handleBudgetAttrChange = this.handleBudgetAttrChange.bind(this);
@@ -61,12 +61,12 @@ class RightSidebar extends React.Component{
 				</div>
 				<div className="row-fluid estimates-fig-wrapper">
 					<div className="row-fluid">
-						<span className="budget-attr-span rightsidebar-titles"><b>Budget Attributes :</b></span>
+						<span className="budget-attr-span rightsidebar-titles"><b>RTI Status:</b></span>
 					</div>			
 					<div className="btn-group button-grps btn-group-vertical" data-toggle="buttons">
-						<button type="button" value="BE" className={this.state.budgetAttribute==="BE" ? "btn btn-default focus active" : "btn btn-default"}  onClick ={this.handleBudgetAttrChange}> Budget Estimates</button>
-						<button type="button" value="RE" className={this.state.budgetAttribute==="RE" ? "btn btn-default focus active" : "btn btn-default"} onClick ={this.handleBudgetAttrChange}>Revised Estimates</button>
-						<button type="button" value="A" className={this.state.budgetAttribute==="A" ? "btn btn-default focus active" : "btn btn-default"}  onClick ={this.handleBudgetAttrChange}>Actuals</button>
+						<button type="button" value="all" className={this.state.budgetAttribute==="all" ? "btn btn-default focus active" : "btn btn-default"}  onClick ={this.handleBudgetAttrChange}>All districts</button>
+						<button type="button" value="responded" className={this.state.budgetAttribute==="responded" ? "btn btn-default focus active" : "btn btn-default"} onClick ={this.handleBudgetAttrChange}>Responded</button>
+						<button type="button" value="responded_clearly" className={this.state.budgetAttribute==="responded_clearly" ? "btn btn-default focus active" : "btn btn-default"}  onClick ={this.handleBudgetAttrChange}>Responded Y/N</button>
 					</div>
 				</div>
 				<div className="row misc-buttons-wrapper">

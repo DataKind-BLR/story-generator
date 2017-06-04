@@ -9,5 +9,6 @@ export default(
 <Route path="/" components={App}>
 	<IndexRoute components={IndexComponent} />
 	<Route path="/expenditure/:sector/:indicator" component={AppController}  />
+	<Route path="/details/:sector/:indicator" component={AppController}  />
 </Route>
 );

@@ -9,7 +9,7 @@ import {
   Rectangle,
   TileLayer, GeoJSON
 } from 'react-leaflet';
-import { expenditure_metadata } from "../../../data/expenditure_data_metadata";
+import { remand_and_bail_responses_metadata } from "../../../data/remand_and_bail_responses_metadata";
 import 'bootstrap/dist/css/bootstrap.css';
 import { concordance_data } from "../../../data/concordance_data";
 
@@ -126,7 +126,7 @@ export default class Choropleth extends Component {
     constructor(){
       super();
       this.state = {
-        budgetAttr:"BE",
+        budgetAttr:"all",
         selectedYear:null, 
         selectedFigure:null,
         hoverstate:null,
@@ -206,7 +206,7 @@ export default class Choropleth extends Component {
 
     updateNotes(){
       let self = this;
-      let description = expenditure_metadata.find(function(record, index){
+      let description = remand_and_bail_responses_metadata.find(function(record, index){
         if(record.slugSector == self.props.selectedSector && record.slugIndicator == self.props.data.slugIndicator){
           return record;
         }
@@ -344,6 +344,7 @@ export default class Choropleth extends Component {
     for (let key in data.stateFigures[0].figures[this.props.attrType]){
       yearList.push(Object.keys(data.stateFigures[0].figures[this.props.attrType][key])[0]);
     }
+		console.log(yearList);
     return yearList;
   }
 
@@ -382,7 +383,7 @@ export default class Choropleth extends Component {
   }
 
 render (){
-  const attributeKey = {"BE":" Budget Estimates", "RE":"Revised Estimates", "A":"Actuals"};
+  const attributeKey = {"complied":"All districts", "responded":"Responded", "responded_clearly":"Responded Y/N"};
     return (
      <div id="card-container">
       <div className="row selected-params">

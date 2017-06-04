@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
-import {expenditure_data} from "../../../../data/expenditure_data";
+import { chri_data } from "../../../../data/chri_data";
 
 const tabData = [
   { name: 'Expenditure', isActive: true }
@@ -41,7 +41,7 @@ function SubIndicators(props){
   const indicatorList = subIndicators.map((indicator) =>
     ( 
       <li className="list-group-item" key={indicator.indicator}>
-        <Link to={"/expenditure/"+slugSector+"/"+indicator.slugIndicator}> {indicator.indicator}</Link> 
+        <Link to={"/details/"+slugSector+"/"+indicator.slugIndicator}> {indicator.indicator}</Link> 
       </li>
       ))
   return(
@@ -84,7 +84,7 @@ class Content extends React.Component{
       <div>
         {this.props.activeTab.name === 'Expenditure' ? 
         <section className="panel panel-success card-box-shadow">
-          <SectorList sectors={expenditure_data} />
+          <SectorList sectors={ chri_data } />
         </section>
         :null} 
         {this.props.activeTab.name === 'Revenue' ? 
