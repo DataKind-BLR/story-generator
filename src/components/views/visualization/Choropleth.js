@@ -385,19 +385,15 @@ render (){
         <div className="row selected-params">
           <div className="row">
             <div className="col-lg-10 indicator-title-wrapper">
-              <h3 className="indicator-title">{(this.props.selectedIndicator || {}).description}
+              <h3 className="indicator-title">{this.props.title}
               </h3>
             </div>
-            <div className="col-lg-2 know-more-text">
-              <a className="know-more-link" onClick={this.showConcordanceData}>Know More</a>
-            </div>
-
           </div>
 
           <div className="row">
             <div className="col-lg-8 sub-text">
               <h4 className="sector-title">
-                {this.props.sectorName}
+                {this.props.subtitle}
               </h4>
             </div>
 

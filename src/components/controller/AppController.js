@@ -7,67 +7,77 @@ import { themes, getSubThemes, getTopics } from "../../data";
 class AppController extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            budgetAttr:"complied",
+        this.state = {
+            budgetAttr: "complied",
             viewBy: "choropleth",
             sectorSelected: {},
             indicatorData: {},
-            sectorName: '' };
+            sectorName: '',
+            selectedIndicator: {},
+            selectedSubTheme: {}
+        };
         this.handleChange = this.handleChange.bind(this);
-        this.onChangeBudgetAttr =this.onChangeBudgetAttr.bind(this);
+        this.onChangeBudgetAttr = this.onChangeBudgetAttr.bind(this);
     }
 
     componentWillMount() {
-        if(this.props.params == undefined || this.props.params.topic == undefined) return;
+        if (this.props.params == undefined || this.props.params.topic == undefined) return;
         const { theme, sub_theme, topic } = this.props.params;
         const sub_theme_url_slug = `${theme}/${sub_theme}`;
         const theme_entity = themes.filter(t => t.url_slug === theme).shift();
         const sub_theme_entity = getSubThemes(theme_entity).filter(s => s.url_slug === sub_theme).shift();
         const topic_entity = getTopics(sub_theme_entity).filter(t => t.url_slug === topic).shift();
-        this.setState({indicatorData: topic_entity.data, sectorName:sub_theme_entity.name, sectorSelected:sub_theme});
+        this.setState({ indicatorData: topic_entity.data, sectorName: sub_theme_entity.name, sectorSelected: sub_theme, selectedIndicator: topic_entity, selectedSubTheme: sub_theme_entity });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.props.params == undefined || this.props.params.topic == undefined) return;
+        if (this.props.params == undefined || this.props.params.topic == undefined) return;
         const { theme, sub_theme, topic } = this.props.params;
         const sub_theme_url_slug = `${theme}/${sub_theme}`;
         const theme_entity = themes.filter(t => t.url_slug === theme).shift();
         const sub_theme_entity = getSubThemes(theme_entity).filter(s => s.url_slug === sub_theme).shift();
         const topic_entity = getTopics(sub_theme_entity).filter(t => t.url_slug === topic).shift();
-        if(prevState.indicatorData != topic_entity.data){
-            this.setState({indicatorData: topic_entity.data, sectorName:sub_theme_entity.name, sectorSelected:sub_theme});
+        if (prevState.indicatorData != topic_entity.data) {
+            this.setState({ indicatorData: topic_entity.data, sectorName: sub_theme_entity.name, sectorSelected: sub_theme, selectedIndicator: topic_entity, selectedSubTheme: sub_theme_entity });
         }
     }
 
-    handleChange(value){
+    handleChange(value) {
         this.setState({ viewBy: value });
     }
 
-    onChangeBudgetAttr(value){
-        this.setState({ budgetAttr :value});
+    onChangeBudgetAttr(value) {
+        this.setState({ budgetAttr: value });
     }
-   
+
     render() {
-        if(this.props.params == undefined || this.props.params.topic == undefined) return null;
-        return ( 
+        if (this.props.params == undefined || this.props.params.topic == undefined) return null;
+        return (
             <div>
-                <div className = "col-lg-12" >
-                    <div id = "vis-container" >
-                    {
-                        this.state.viewBy == "choropleth" ? ( 
-                            <Choropleth data={this.state.indicatorData} attrType={this.state.budgetAttr} selectedIndicator={this.state.indicatorData.indicator} selectedSector = {this.state.sectorSelected} sectorName= {this.state.sectorName}/> ) 
-                        :(
-                            <GraphComponent data={this.state.indicatorData} attrType={this.state.budgetAttr} selectedIndicator={this.state.indicatorData.indicator} selectedSector = {this.state.sectorSelected} sectorName= {this.state.sectorName} /> )
-                    }
+                <div className="col-lg-12" >
+                    <div id="vis-container" >
+                        {/*{
+                        this.state.viewBy == "choropleth" ? ( */}
+                        <Choropleth
+                            title={this.state.selectedSubTheme.description}
+                            subtitle={this.state.selectedIndicator.description}
+                            data={this.state.indicatorData}
+                            attrType={this.state.budgetAttr}
+                            selectedIndicator={this.state.selectedIndicator}
+                            selectedSector={this.state.sectorSelected}
+                            sectorName={this.state.sectorSelected.description} /> )
+                        {/*:(
+                            <GraphComponent data={this.state.indicatorData} attrType={this.state.budgetAttr} selectedIndicator={this.state.selectedIndicator} selectedSector = {this.state.sectorSelected} sectorName= {this.state.sectorName} /> )
+                    }*/}
                     </div>
                 </div>
             </div>
-            );
-        }
+        );
     }
+}
 
 AppController.propTypes = {
-   params: React.PropTypes.object
+    params: React.PropTypes.object
 };
 
 export default AppController;
