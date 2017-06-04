@@ -1,15 +1,21 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
-import SelectionPanel from './subcomponents/SelectionPanel';
+import { SubThemesSelector } from './subcomponents/SubThemesSelector';
+import styled from 'styled-components';
 
-class LeftSidebar extends React.Component{
-	render(){
-		return(
-		<div>
-			<div className="select-panel row-fluid">
-				<SelectionPanel params={this.props.params} />
-			</div>
-		</div>
+const Panel = styled.div`
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding: 5px;
+`;
+
+class LeftSidebar extends React.Component {
+	render() {
+		return (
+			<Panel>
+				<SubThemesSelector params={this.props.params} />
+			</Panel>
 		);
 	}
 }

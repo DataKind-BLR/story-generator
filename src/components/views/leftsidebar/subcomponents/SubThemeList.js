@@ -12,11 +12,11 @@ const Topics = ({ topics }) =>
     }
   </ul>;
 
-const SubThemeList = ({ subThemes, params }) => {
-  const active = params != undefined && params.sub_theme != undefined ? subThemes.filter(s => s.url_slug === params.sub_theme).shift() : undefined;
+export const SubThemeList = ({ sub_themes, params }) => {
+  const active = params != undefined && params.sub_theme != undefined ? sub_themes.filter(s => s.url_slug === params.sub_theme).shift() : undefined;
   return (
   <div className="panel-group select-panel" id="accordion">
-    {subThemes.map(subTheme =>
+    {sub_themes.map(subTheme =>
       <div className="panel panel-default" key={subTheme.url_slug}>
         <div className="panel-heading">
           <h4 className="panel-title">
@@ -31,22 +31,3 @@ const SubThemeList = ({ subThemes, params }) => {
   </div>
   );
 };
-
-const Content = ({ sub_themes, params }) =>
-  <div>
-    <section className="panel panel-success card-box-shadow">
-      <SubThemeList subThemes={sub_themes} params={params} />
-    </section>
-  </div>;
-
-const TabsPanel = ({ params }) => {
-  const activeTheme = (params != undefined && params.theme != undefined) ? themes.filter(t => t.url_slug === params.theme).shift() : themes[0];
-  return (
-    <div>
-      <Tabs themes={[activeTheme]} titleSelector={theme => theme.description} activeTheme={activeTheme} />
-      <Content sub_themes={getSubThemes(activeTheme)} params={params} />
-    </div>
-  );
-};
-
-export default TabsPanel;
