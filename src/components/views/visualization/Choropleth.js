@@ -9,9 +9,10 @@ import {
   Rectangle,
   TileLayer, GeoJSON
 } from 'react-leaflet';
-import { expenditure_metadata } from "../../../data/expenditure_data_metadata";
 import 'bootstrap/dist/css/bootstrap.css';
-import { concordance_data } from "../../../data/concordance_data";
+
+const expenditure_metadata = [];
+concordance_data = [];
 
 let config = {};
 
