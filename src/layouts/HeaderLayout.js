@@ -17,8 +17,9 @@ const Layout = styled.div`
 `;
 
 const Header = styled.header`
+  padding: 5px 7px;
   overflow: hidden;
-  text-align: center;
+  text-align: left;
   margin-top: 10px;
   margin-bottom: 10px;
   img {
@@ -57,7 +58,9 @@ const Main = styled.main`
 `;
 
 const Content = styled.div`
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #ccc;
+  box-shadow: -1px 2px 6px #666;
+  margin-top: -3px;
 `;
 
 export const HeaderLayout = ({ title, logo, children, params }) =>
