@@ -396,9 +396,6 @@ export default class Choropleth extends Component {
               </h4>
             </div>
           </div>
-          <div className="sub-text" style={{ position: 'absolute', right: '20px', bottom: '10px' }}>
-            <h5 className="figures-unit" style={{ margin: 0 }}>Unit : Figures in {this.state.indicatorUnit}</h5>
-          </div>
         </div>
         <div className="row vis-wrapper" style={this.state.vizActive ? { "overflowY": "hidden" } : { "overflowY": "scroll" }}>
           {
@@ -426,15 +423,14 @@ export default class Choropleth extends Component {
 
                 <div className="legendcontainer">
                   <div className="legend-scale">
+                    <h5 className="figures-unit">Figures in {this.state.indicatorUnit}</h5>
                     <ul className="legend-labels">
                       <LegendStep bgColor="#B3EAFF" band="20%" range={this.state.bandFigures["20%"]} />
                       <LegendStep bgColor="#73D9FF" band="40%" range={this.state.bandFigures["40%"]} />
                       <LegendStep bgColor="#40C1F3" band="60%" range={this.state.bandFigures["60%"]} />
                       <LegendStep bgColor="#4094B3" band="80%" range={this.state.bandFigures["80%"]} />
                       <LegendStep bgColor="#406573" band="100%" range={this.state.bandFigures["100%"]} />
-                      <li>
-                        <span className="legendspanside" style={{ "background": "#BFBFBF" }}>Data Unavailable</span>
-                      </li>
+                      <li><span className="legendspanside" style={{ "background": "#BFBFBF" }}>Data Unavailable</span></li>
                     </ul>
                   </div>
                 </div>
