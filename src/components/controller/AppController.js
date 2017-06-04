@@ -57,8 +57,8 @@ class AppController extends React.Component {
                 <div className="col-lg-12" >
                     <div id="vis-container" >
                         <Choropleth
-                            title={this.state.selectedSubTheme.description}
-                            subtitle={this.state.selectedIndicator.description}
+                            subtitle={this.state.selectedSubTheme.description}
+                            title={this.state.selectedIndicator.description}
                             data={this.state.indicatorData}
                             attrType={this.state.budgetAttr}
                             selectedIndicator={this.state.selectedIndicator}
