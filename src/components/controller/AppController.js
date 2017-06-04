@@ -56,8 +56,6 @@ class AppController extends React.Component {
             <div>
                 <div className="col-lg-12" >
                     <div id="vis-container" >
-                        {/*{
-                        this.state.viewBy == "choropleth" ? ( */}
                         <Choropleth
                             title={this.state.selectedSubTheme.description}
                             subtitle={this.state.selectedIndicator.description}
@@ -65,10 +63,8 @@ class AppController extends React.Component {
                             attrType={this.state.budgetAttr}
                             selectedIndicator={this.state.selectedIndicator}
                             selectedSector={this.state.sectorSelected}
-                            sectorName={this.state.sectorSelected.description} /> )
-                        {/*:(
-                            <GraphComponent data={this.state.indicatorData} attrType={this.state.budgetAttr} selectedIndicator={this.state.selectedIndicator} selectedSector = {this.state.sectorSelected} sectorName= {this.state.sectorName} /> )
-                    }*/}
+                            sectorName={this.state.sectorSelected.description}
+                            notes={this.state.selectedIndicator.notes} />
                     </div>
                 </div>
             </div>

@@ -73,7 +73,7 @@ class StateToolTip extends React.Component {
   render() {
     if (this.props.statetooltip == null) {
       return (
-        <div className="statetoolPanelHeading">Please select a state from the map</div>
+        <div className="statetoolPanelHeading">Hover over a state to see details</div>
       );
     }
     return (
@@ -115,7 +115,7 @@ AllocationDetails.propTypes = {
 
 class LegendStep extends React.Component {
   render() {
-    if(this.props.range == undefined) return null;
+    if (this.props.range == undefined) return null;
     return (
       <li>
         <span className="legendspanside" style={{ "background": this.props.bgColor }}>{(this.props.range[0]).toFixed(2)} - {(this.props.range[1]).toFixed(2)}</span>
@@ -130,36 +130,36 @@ LegendStep.propTypes = {
 };
 
 export default class Choropleth extends Component {
-    constructor(){
-      super();
-      this.state = {
-        budgetAttr:"all",
-        selectedYear:null, 
-        selectedFigure:null,
-        hoverstate:null,
-        hoverFigure:null,
-        indicatorUnit:null,
-        bandFigures:null,
-        notesText:null,
-        vizActive:true,
-        concordanceData:null
-      };
+  constructor() {
+    super();
+    this.state = {
+      budgetAttr: "all",
+      selectedYear: null,
+      selectedFigure: null,
+      hoverstate: null,
+      hoverFigure: null,
+      indicatorUnit: null,
+      bandFigures: null,
+      notesText: null,
+      vizActive: true,
+      concordanceData: null
+    };
 
-      this.computeBands = this.computeBands.bind(this);
-      this.mungeData = this.mungeData.bind(this);
-      this.getYearList = this.getYearList.bind(this);
-      this.handleYearChange = this.handleYearChange.bind(this);
-      this.getstyle = this.getstyle.bind(this);
-      this.onEachFeature = this.onEachFeature.bind(this);
-      this.highlightFeature = this.highlightFeature.bind(this);
-      this.resetHighlight = this.resetHighlight.bind(this);
-      this.setToolTipContent = this.setToolTipContent.bind(this);
-      this.getBandNum = this.getBandNum.bind(this);
-      this.fillColor = this.fillColor.bind(this);
-      this.updateNotes = this.updateNotes.bind(this);
-      this.showConcordanceData = this.showConcordanceData.bind(this);
-      this.updateConcordanceData = this.updateConcordanceData.bind(this);
-    }
+    this.computeBands = this.computeBands.bind(this);
+    this.mungeData = this.mungeData.bind(this);
+    this.getYearList = this.getYearList.bind(this);
+    this.handleYearChange = this.handleYearChange.bind(this);
+    this.getstyle = this.getstyle.bind(this);
+    this.onEachFeature = this.onEachFeature.bind(this);
+    this.highlightFeature = this.highlightFeature.bind(this);
+    this.resetHighlight = this.resetHighlight.bind(this);
+    this.setToolTipContent = this.setToolTipContent.bind(this);
+    this.getBandNum = this.getBandNum.bind(this);
+    this.fillColor = this.fillColor.bind(this);
+    this.updateNotes = this.updateNotes.bind(this);
+    this.showConcordanceData = this.showConcordanceData.bind(this);
+    this.updateConcordanceData = this.updateConcordanceData.bind(this);
+  }
 
   componentWillMount() {
     this.updateNotes();
@@ -205,7 +205,7 @@ export default class Choropleth extends Component {
 
   updateNotes() {
     let self = this;
-    let description = "DESC"; 
+    let description = "DESC";
     this.setState({ notesText: description });
   }
 
@@ -220,64 +220,64 @@ export default class Choropleth extends Component {
   }
 
   computeBands(tempData, year) {
-     let data = tempData || {};
-     let currentState = this.state;
+    let data = tempData || {};
+    let currentState = this.state;
 
     let max = Math.max.apply(null, (data.features || []).map(function (state, index) {
       if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
-         return parseFloat(state.properties[year]);
-       }
-       else {
-         return -Infinity;
-       }
-     }));
-     max = max + max * 0.1;
-
-     let min = Math.min.apply(null, (data.features || []).map(function (state, index) {
-       if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
-         return parseFloat(state.properties[year]);
-       }
-       else {
-         return Infinity;
+        return parseFloat(state.properties[year]);
       }
-     }));
-     min = min - min * 0.1;
+      else {
+        return -Infinity;
+      }
+    }));
+    max = max + max * 0.1;
 
-     let retvalue = {
-       "20%": [min, min + (20 * (max - min)) / 100, 1],
-       "40%": [min + (20 * (max - min)) / 100, min + (40 * (max - min)) / 100, 2],
-       "60%": [min + (40 * (max - min)) / 100, min + (60 * (max - min)) / 100, 3],
-       "80%": [min + (60 * (max - min)) / 100, min + (80 * (max - min)) / 100, 4],
-       "100%": [min + (80 * (max - min)) / 100, min + (100 * (max - min)) / 100, 5]
-     };
-     this.setState({ bandFigures: retvalue });
+    let min = Math.min.apply(null, (data.features || []).map(function (state, index) {
+      if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
+        return parseFloat(state.properties[year]);
+      }
+      else {
+        return Infinity;
+      }
+    }));
+    min = min - min * 0.1;
+
+    let retvalue = {
+      "20%": [min, min + (20 * (max - min)) / 100, 1],
+      "40%": [min + (20 * (max - min)) / 100, min + (40 * (max - min)) / 100, 2],
+      "60%": [min + (40 * (max - min)) / 100, min + (60 * (max - min)) / 100, 3],
+      "80%": [min + (60 * (max - min)) / 100, min + (80 * (max - min)) / 100, 4],
+      "100%": [min + (80 * (max - min)) / 100, min + (100 * (max - min)) / 100, 5]
+    };
+    this.setState({ bandFigures: retvalue });
   }
 
   mungeData() {
-     let GeoJSONData = getStateFeatures();// topojson.feature(TopojsonData, TopojsonData.objects.india_state_boundaries);
-     let stateFigures = this.props.data;
-     let attrType = this.props.attrType;
-     let MappedFigures = new Array();
-     MappedFigures = GeoJSONData.features.map(function(state, index){      
-       let temp = (stateFigures.stateFigures || []).find(function(x){
-       if(x.state==state.properties.NAME_1)
-           return x;
-       else{
-         return false;
-           }
-       });
+    let GeoJSONData = getStateFeatures();// topojson.feature(TopojsonData, TopojsonData.objects.india_state_boundaries);
+    let stateFigures = this.props.data;
+    let attrType = this.props.attrType;
+    let MappedFigures = new Array();
+    MappedFigures = GeoJSONData.features.map(function (state, index) {
+      let temp = (stateFigures.stateFigures || []).find(function (x) {
+        if (x.state == state.properties.NAME_1)
+          return x;
+        else {
+          return false;
+        }
+      });
 
-       if(temp != null){
-         let tempFigure = temp.figures[attrType];
-         for (let fiscalFigure in tempFigure){
-           let tempYear = Object.keys(tempFigure[fiscalFigure])[0];
-           state.properties[tempYear] = parseFloat(tempFigure[fiscalFigure][tempYear]);
-           }
-       }
-     return state;
-     });
-      console.log('MAPPED FIGURES', MappedFigures);
-     return {"type": "FeatureCollection", "features": MappedFigures};
+      if (temp != null) {
+        let tempFigure = temp.figures[attrType];
+        for (let fiscalFigure in tempFigure) {
+          let tempYear = Object.keys(tempFigure[fiscalFigure])[0];
+          state.properties[tempYear] = parseFloat(tempFigure[fiscalFigure][tempYear]);
+        }
+      }
+      return state;
+    });
+    console.log('MAPPED FIGURES', MappedFigures);
+    return { "type": "FeatureCollection", "features": MappedFigures };
   }
 
   getBandNum(figure) {
@@ -340,7 +340,7 @@ export default class Choropleth extends Component {
     for (let key in data.stateFigures[0].figures[this.props.attrType]) {
       yearList.push(Object.keys(data.stateFigures[0].figures[this.props.attrType][key])[0]);
     }
-		console.log(yearList);
+    console.log(yearList);
     return yearList;
   }
 
@@ -378,8 +378,8 @@ export default class Choropleth extends Component {
     this.setState({ vizActive: this.state.vizActive ? false : true });
   }
 
-render (){
-  const attributeKey = {"complied":"All districts", "responded":"Responded", "responded_clearly":"Responded Y/N"};
+  render() {
+    const attributeKey = { "complied": "All districts", "responded": "Responded", "responded_clearly": "Responded Y/N" };
     return (
       <div id="card-container">
         <div className="row selected-params">
@@ -389,23 +389,11 @@ render (){
               </h3>
             </div>
           </div>
-
-          <div className="row">
+          <div className="row" style={{ marginBottom: '10px' }}>
             <div className="col-lg-8 sub-text">
               <h4 className="sector-title">
                 {this.props.subtitle}
               </h4>
-            </div>
-
-          </div>
-          <div className="row row-sub-text">
-            <div className="col-lg-8 sub-text">
-              <h5 className="budgetattr-year">
-                {this.state.selectedYear} | {attributeKey[this.state.budgetAttr]}
-              </h5>
-            </div>
-            <div className="col-lg-4 sub-text">
-              <h5 className="figures-unit">Unit : Figures in {this.state.indicatorUnit}</h5>
             </div>
           </div>
         </div>
@@ -436,7 +424,6 @@ render (){
                 <div className="legendcontainer">
                   <div className="legend-scale">
                     <ul className="legend-labels">
-
                       <LegendStep bgColor="#B3EAFF" band="20%" range={this.state.bandFigures["20%"]} />
                       <LegendStep bgColor="#73D9FF" band="40%" range={this.state.bandFigures["40%"]} />
                       <LegendStep bgColor="#40C1F3" band="60%" range={this.state.bandFigures["60%"]} />
@@ -448,9 +435,6 @@ render (){
                     </ul>
                   </div>
                 </div>
-
-
-
               </Map>
             ) :
               (
@@ -481,18 +465,20 @@ render (){
               )
           }
         </div>
-        <div className="row indicator-description">
-          Source - {(this.state.notesText || {}).source}
-        </div>
+        {this.props.notes &&
+          <div className="row indicator-description">
+            {this.props.notes}
+          </div>
+        }
       </div>
     );
   }
 }
 
 Choropleth.propTypes = {
-   data: React.PropTypes.object,
-   attrType:React.PropTypes.string,
-   selectedSector:React.PropTypes.string,
-   selectedIndicator:React.PropTypes.string,
-   sectorName:React.PropTypes.string
+  data: React.PropTypes.object,
+  attrType: React.PropTypes.string,
+  selectedSector: React.PropTypes.string,
+  selectedIndicator: React.PropTypes.string,
+  sectorName: React.PropTypes.string
 };
