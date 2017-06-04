@@ -382,19 +382,22 @@ export default class Choropleth extends Component {
     const attributeKey = { "complied": "All districts", "responded": "Responded", "responded_clearly": "Responded Y/N" };
     return (
       <div id="card-container">
-        <div className="row selected-params">
+        <div className="row selected-params" style={{ position: 'relative' }}>
           <div className="row">
             <div className="col-lg-10 indicator-title-wrapper">
               <h3 className="indicator-title">{this.props.title}
               </h3>
             </div>
           </div>
-          <div className="row" style={{ marginBottom: '10px' }}>
+          <div className="row">
             <div className="col-lg-8 sub-text">
-              <h4 className="sector-title">
+              <h4 className="sector-title" style={{ marginBottom: '10px' }}>
                 {this.props.subtitle}
               </h4>
             </div>
+          </div>
+          <div className="sub-text" style={{ position: 'absolute', right: '20px', bottom: '10px' }}>
+            <h5 className="figures-unit" style={{ margin: 0 }}>Unit : Figures in {this.state.indicatorUnit}</h5>
           </div>
         </div>
         <div className="row vis-wrapper" style={this.state.vizActive ? { "overflowY": "hidden" } : { "overflowY": "scroll" }}>
