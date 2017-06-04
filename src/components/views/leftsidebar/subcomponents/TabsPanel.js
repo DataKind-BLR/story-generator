@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
-import { expenditure_data } from "../../../../data/expenditure_data";
 import { getSubThemes, getTopics, sub_themes, themes, topics } from '../../../../data';
 import { Tabs } from '../../Tabs';
 
