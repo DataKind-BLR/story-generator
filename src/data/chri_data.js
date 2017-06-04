@@ -2,6 +2,7 @@ import { remand_and_bail_responses } from "./remand_and_bail.js"
 
 function legal_aid_council_appointed(state) {
 
+/*
 	var states = [{state : "Delhi", state_caps: "DELHI"}, {state : "Himachal Pradesh", state_caps: "HIMACHAL PRADESH"}, {state : "Karnataka", state_caps: "KARNATAKA"}, {state : "Punjab", state_caps: "PUNJAB"}, {state : "Mizoram", state_caps: "MIZORAM"}, {state : "Sikkim", state_caps: "SIKKIM"}, {state : "Tamil Nadu", state_caps: "TAMILNADU"}, {state : "Telangana", state_caps: "TELANGANA"}, {state : "Haryana", state_caps:"HARAYANA"}, {state : "West Bengal", state_caps: "WEST BENGAL"}, {state : "Kerala", state_caps: "KERALA"}, {state : "Odisha", state_caps: "ODISHA"}, {state : "Maharastra", state_caps: "MAHARASHTRA"}, {state : "Chandigarh"}, {state : "Pondicherry"}, {state : "Andrha Pradesh"}, {state : "Jharkhand"}, {state : "Assam"}, {state : "DAMAN & DIU"}, {state : "Madhya Pradesh"}, {state : "Bihar"}, {state : "Arunachal Pradesh"}, {state : "Meghalaya"}, {state : "Uttarakhand"}, {state : "Dadra & Nagar Haveli"}, {state : "Uttar Pradesh"}, {state : "Manipur"}, {state : "Maharashtra"}];
 
 	states.map((state) => {
@@ -24,6 +25,7 @@ function legal_aid_council_appointed(state) {
 	console.log(remand_and_bail_responses.filter((res) => { return res['STATE'].trim() == "DELHI" }));
 
 	return states;
+*/
 
 /*
 	return [
