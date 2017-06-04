@@ -7,10 +7,6 @@ import { themes, getSubThemes } from '../../../../data';
 
 const Container = styled.div`
 	overflow: hidden;
-	height: 100%;
-	width: 100%;
-	padding-right: 12px;
-	overflow-y: scroll;
 `;
 export const SubThemesSelector = ({ params }) => {
 	const activeTheme = (params != undefined && params.theme != undefined) ? themes.filter(t => t.url_slug === params.theme).shift() : themes[0];

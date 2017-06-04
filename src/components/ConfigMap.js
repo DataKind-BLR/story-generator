@@ -6,7 +6,7 @@ let appConfig = {
 
 let homeComponent = {
 	"primary_header": "CHRI Legal Aid Monitoring Tool",
-	"secondary_header" : "Story Generator",
+	"secondary_header" : "",
 	"description" : "Select a question to generate the visualizations"
 }
 
