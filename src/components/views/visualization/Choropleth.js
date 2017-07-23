@@ -16,8 +16,8 @@ import { state_boundaries } from '../../../data/state_boundaries';
 const expenditure_metadata = [];
 const concordance_data = [];
 
-const getDistrictFeatures = () => topojson.feature(district_boundaries, district_boundaries.objects.districts);
-const getStateFeatures = () => topojson.feature(state_boundaries, state_boundaries.objects.india_state_boundaries);
+const getDistrictFeatures = () => window.topojson.feature(district_boundaries, district_boundaries.objects.districts);
+const getStateFeatures = () => window.topojson.feature(state_boundaries, state_boundaries.objects.india_state_boundaries);
 
 let config = {};
 
@@ -231,7 +231,8 @@ export default class Choropleth extends Component {
         return -Infinity;
       }
     }));
-    max = max + max * 0.1;
+    // TODO: Figure out why this was added in the first place
+    // max = max + max * 0.1;
 
     let min = Math.min.apply(null, (data.features || []).map(function (state, index) {
       if (state.properties[year] != null && !isNaN(parseFloat(state.properties[year]))) {
@@ -276,7 +277,6 @@ export default class Choropleth extends Component {
       }
       return state;
     });
-    console.log('MAPPED FIGURES', MappedFigures);
     return { "type": "FeatureCollection", "features": MappedFigures };
   }
 
@@ -340,7 +340,6 @@ export default class Choropleth extends Component {
     for (let key in data.stateFigures[0].figures[this.props.attrType]) {
       yearList.push(Object.keys(data.stateFigures[0].figures[this.props.attrType][key])[0]);
     }
-    console.log(yearList);
     return yearList;
   }
 
@@ -478,6 +477,6 @@ Choropleth.propTypes = {
   data: React.PropTypes.object,
   attrType: React.PropTypes.string,
   selectedSector: React.PropTypes.string,
-  selectedIndicator: React.PropTypes.string,
+  selectedIndicator: React.PropTypes.object,
   sectorName: React.PropTypes.string
 };
